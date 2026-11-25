@@ -1,0 +1,712 @@
+/* ============================================================
+   EventNest - global styles (CSS only, no JSX changes needed)
+   Sections: 1 Variables  2 Page layout  3 Text  4 Forms
+             5 Buttons  6 Tabs  7 Cards  8 Dashboard  9 Tasks  10 Modal
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ---------- 1. Variables ---------- */
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --text: #475569;
+  --text-muted: #94a3b8;
+  --text-h: #0f172a;
+  --border: #e5e7eb;
+  --primary: #6d28d9;
+  --primary-hover: #5b21b6;
+  --primary-soft: #f3efff;
+  --danger: #dc2626;
+  --danger-soft: #fef2f2;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --radius: 14px;
+
+  font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ---------- 2. Page layout ---------- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* A purple header band across the top of every page */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 190px;
+  background: linear-gradient(120deg, #4c1d95, #7c3aed);
+  z-index: -1;
+}
+
+/* The content area: one white panel that overlaps the header band */
+#root {
+  max-width: 1100px;
+  margin: 70px auto 48px;
+  padding: 40px 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.app-brand-header {
+  text-align: center;
+  margin: 0 auto 22px;
+}
+
+.app-brand-header h1 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  letter-spacing: -0.04em;
+}
+
+.app-brand-header p {
+  margin: 4px 0 0;
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Login & Register: small centred card (matches pages that link to each other) */
+#root:has(a[href="/login"], a[href="/register"]) {
+  max-width: 440px;
+  margin-top: 12vh;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  #root {
+    margin: 40px 12px 24px;
+    padding: 24px 18px;
+  }
+}
+
+/* ---------- 3. Text ---------- */
+h1,
+h2,
+h3 {
+  margin: 0 0 12px;
+  color: var(--text-h);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+h1 { font-size: 28px; }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; font-weight: 600; }
+
+p { margin: 0 0 12px; }
+
+a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+/* ---------- 4. Forms ---------- */
+form {
+  max-width: 460px;
+  margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text-h);
+  background: #fff;
+  border: 1px solid #d5dbe5;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:hover,
+select:hover { border-color: #b8c2d1; }
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+/* ---------- 5. Buttons ---------- */
+button {
+  padding: 10px 20px;
+  margin: 6px 8px 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+button:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 16px rgba(109, 40, 217, 0.25);
+}
+
+button:active { transform: scale(0.98); }
+
+button:focus-visible {
+  outline: 3px solid #c4b5fd;
+  outline-offset: 2px;
+}
+
+/* Buttons inside forms are full width */
+form button {
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 12px 20px;
+}
+
+/* Cancel (type="button") = white secondary button */
+form button[type="button"] {
+  color: var(--text-h);
+  background: #fff;
+  border-color: #d5dbe5;
+}
+
+form button[type="button"]:hover {
+  background: #f8fafc;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- 6. Tabs (Event Details) ---------- */
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px auto 28px;       /* "auto" left/right centres the tab bar */
+  padding: 5px;
+  width: fit-content;
+  max-width: 100%;
+  background: #f1f3f9;
+  border-radius: 12px;
+  color: transparent;          /* hides the "|" characters between links */
+  font-size: 0;                /* ...and the space they take up */
+}
+
+nav a {
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 9px;
+  color: var(--text);
+}
+
+nav a:hover {
+  background: #fff;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* NavLink adds class="active" to the current tab */
+nav a.active,
+nav a[aria-current="page"] {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+}
+
+nav a.active:hover,
+nav a[aria-current="page"]:hover {
+  background: var(--primary-hover);
+  color: #fff;
+}
+
+/* ---------- 7. Cards ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  margin: 20px 0 24px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px 22px 20px;
+  margin: 0 0 12px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6d28d9, #a78bfa);
+}
+
+.card:hover {
+  border-color: #d8ccfb;
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.card-grid .card { margin: 0; }
+
+.card p { margin: 0 0 6px; font-size: 14px; }
+
+.card p:first-child {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.card a {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.card a:hover { color: var(--primary); text-decoration: none; }
+
+/* The Overview card (has an <h3>) is one wide panel: no lift, no first-line title style */
+.card:has(h3) { padding: 28px 32px 16px; }
+.card:has(h3):hover { transform: none; box-shadow: var(--shadow-sm); border-color: var(--border); }
+.card:has(h3) h3 { margin: 0 0 8px; font-size: 20px; }
+
+/* Each detail line is a row with a thin divider */
+.card:has(h3) p,
+.card:has(h3) p:first-child {
+  margin: 0;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text);
+  border-bottom: 1px solid #f0f1f5;
+}
+
+.card:has(h3) p:last-child { border-bottom: none; }
+
+/* Row of buttons at the bottom of a card (Edit / Delete) */
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.buttonContainer button {
+  flex: 1;
+  margin: 0;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: none;
+}
+
+.buttonContainer button:hover { color: #fff; background: var(--primary); }
+
+.buttonContainer button:last-child { color: var(--danger); background: var(--danger-soft); }
+
+.buttonContainer button:last-child:hover {
+  color: #fff;
+  background: var(--danger);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.25);
+}
+
+/* ---------- 8. Dashboard ----------
+   Dashboard's elements are direct children of #root. */
+
+/* Dashboard layout: header row (welcome + 3 buttons), events list below.
+   Only applies to the page whose last child is a button (the Logout button). */
+#root:has(> button:last-child) {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  column-gap: 10px;
+  align-items: center;
+}
+
+#root:has(> button:last-child) > * { grid-row: 1; margin: 0; }
+#root:has(> button:last-child) > div:first-of-type { grid-column: 1; }
+#root:has(> button:last-child) > button:first-of-type { grid-column: 2; }
+#root:has(> button:last-child) > div:last-of-type { grid-column: 3; }   /* Create Event */
+#root:has(> button:last-child) > button:last-child { grid-column: 4; }
+
+/* the "My Events" block spans the full width on row 2 */
+#root:has(> button:last-child) > div:nth-of-type(2) { grid-row: 2; grid-column: 1 / -1; }
+
+/* Welcome line + small subtitle */
+#root > div:first-child:not(:has(*)) {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-h);
+  line-height: 1.2;
+}
+
+#root > div:first-child:not(:has(*))::after {
+  content: "Here's an overview of your events";
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+/* Phones: stack everything */
+@media (max-width: 700px) {
+  #root:has(> button:last-child) { grid-template-columns: 1fr; row-gap: 10px; }
+  #root:has(> button:last-child) > * { grid-row: auto !important; grid-column: 1 !important; }
+  #root:has(> button:last-child) > div:last-of-type button,
+  #root:has(> button:last-child) > button { width: 100%; }
+}
+
+/* Event cards on the dashboard: whole card is clickable + "View details" footer */
+.card a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card a::after {
+  content: "View details →";
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+/* "My Events" heading gets a divider underneath */
+#root:has(> button:last-child) > div:not(.card) > h3:first-child {
+  margin-top: 36px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Logout = outlined red button at the end */
+#root:has(> button:last-child) > button:last-child {
+  color: var(--danger);
+  background: #fff;
+  border-color: #fecaca;
+  box-shadow: none;
+}
+
+#root:has(> button:last-child) > button:last-child:hover {
+  color: #fff;
+  background: var(--danger);
+}
+
+/* "Go To Events" = secondary white button (Dashboard only) */
+#root:has(> button:last-child) > button:first-of-type {
+  color: var(--text-h);
+  background: #fff;
+  border-color: #d5dbe5;
+  box-shadow: none;
+}
+
+#root:has(> button:last-child) > button:first-of-type:hover { background: #f8fafc; }
+
+/* Event Details page (any page containing the tabs): header + intro text centred,
+   card/row blocks inside keep their own left-aligned text */
+#root:has(nav) { text-align: center; }
+
+#root:has(nav) .card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
+  justify-content: center;
+}
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) { text-align: left; }
+
+/* Event Details page: the "Event Name: ..." line becomes the page title */
+#root:has(nav) > p:first-of-type {
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-h);
+}
+
+/* ---------- 9. Tasks page ----------
+   The Tasks root <div> is the sibling right after the tabs wrapper. */
+
+/* Each task row (unclassed div without a form) */
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.4fr) minmax(0, 1.4fr) minmax(0, 1.4fr) auto auto;   /* 4 text lines + 2 buttons */
+  gap: 4px 16px;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)):hover { box-shadow: var(--shadow); }
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) p {
+  margin: 0;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) p:first-child {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) button {
+  margin: 0;
+  white-space: nowrap;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: none;
+}
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) button:hover { color: #fff; background: var(--primary); }
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) button:last-child {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) button:last-child:hover { color: #fff; background: var(--danger); }
+
+/* Tablet/phone: stack each task's lines */
+@media (max-width: 800px) {
+  div:has(> nav) + div:not(.card) > div:not([class]):not(:has(form)) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The Add/Update Task form opens as a centred popup.
+   position:fixed + translate centres it; the giant box-shadow dims the page behind. */
+div:has(> nav) + div:not(.card) > div:has(form) {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: calc(100% - 32px);
+  max-width: 460px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  text-align: left;
+  padding: 28px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 100vmax rgba(15, 23, 42, 0.55), 0 24px 60px rgba(15, 23, 42, 0.3);
+}
+
+div:has(> nav) + div:not(.card) > div:has(form) h3 { margin-bottom: 4px; font-size: 20px; }
+
+div:has(> nav) + div:not(.card) > div:has(form) form { margin: 16px 0 0; max-width: none; }
+
+/* ---------- Budget page ----------
+   Budget's root <div> is the one that holds <h3> + <h4> headings.
+   (Prefix used below: div:has(> nav) + div:not(.card):has(> h4)) */
+
+/* Root becomes a 3-column grid: 3 summary tiles, then button, then expense rows */
+div:has(> nav) + div:not(.card):has(> h4) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Summary tiles: Total Budget / Total Expenditure / Remaining Budget */
+div:has(> nav) + div:not(.card):has(> h4) > h3,
+div:has(> nav) + div:not(.card):has(> h4) > h4 {
+  margin: 0;
+  padding: 22px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-h);
+  background: var(--primary-soft);
+  border: 1px solid #e4dbff;
+  border-radius: 12px;
+}
+
+/* "Add Expenditure" button sits centred below the tiles */
+div:has(> nav) + div:not(.card):has(> h4) > button {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin: 8px 0;
+}
+
+/* Expense rows: full width; text, thumbnail, Edit, Delete on one line */
+div:has(> nav) + div:not(.card):has(> h4) > div:not([class]):not(:has(form)) {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.1fr) auto auto auto;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+/* Smaller buttons so the text columns get more room */
+div:has(> nav) + div:not(.card):has(> h4) > div:not([class]):not(:has(form)) button {
+  padding: 8px 12px;
+}
+
+div:has(> nav) + div:not(.card):has(> h4) > div:not([class]):not(:has(form)) p {
+  white-space: normal;      /* let long text wrap instead of cutting off with ... */
+}
+
+/* Payment proof thumbnail */
+div:has(> nav) + div:not(.card):has(> h4) > div:not([class]) img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+/* The empty wrapper <div> (form closed) shouldn't draw a blank row */
+div:has(> nav) + div:not(.card):has(> h4) > div:empty { display: none; }
+
+/* File-upload button inside the popup form */
+input[type="file"] {
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 7px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Phones / small screens: tiles and rows stack */
+@media (max-width: 800px) {
+  div:has(> nav) + div:not(.card):has(> h4) { grid-template-columns: 1fr; }
+  div:has(> nav) + div:not(.card):has(> h4) > div:not([class]):not(:has(form)) { grid-template-columns: 1fr; }
+}
+
+/* ---------- Create Event page ----------
+   Matches a <div> that holds an <h2> followed directly by a <form>. */
+#root > div:has(> h2 + form) { max-width: 760px; margin: 0 auto; }
+
+#root > div > h2 {
+  text-align: center;
+  font-size: 26px;
+}
+
+#root > div > h2::after {
+  content: "Fill in the details below to plan your event";
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+/* Two-column form. DOM order: name, type, location, date, description, budget, button */
+#root > div > h2 + form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: none;
+  margin: 28px 0 0;
+}
+
+#root > div > h2 + form > div:nth-child(1) { grid-column: 1 / -1; }   /* name: full width */
+#root > div > h2 + form > div:nth-child(6) { order: 5; }              /* budget next to date */
+#root > div > h2 + form > div:nth-child(5) { order: 6; grid-column: 1 / -1; }  /* description: full width */
+#root > div > h2 + form > button { order: 7; grid-column: 1 / -1; margin-top: 8px; }
+
+@media (max-width: 700px) {
+  #root > div > h2 + form { grid-template-columns: 1fr; }
+}
+
+/* ---------- 10. Modal (Guests popup) ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 440px;
+  padding: 28px;
+  text-align: left;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+}
+
+.modal-content form { margin: 0; }
